@@ -13,7 +13,7 @@ def home():
 @app.route('/news')
 def news():
     articles = scrape_news()
-    print(articles)
+    print("Articles", articles)
     return render_template('news.html', articles=articles)
 
 @app.route('/stocks')

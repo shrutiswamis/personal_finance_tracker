@@ -1,27 +1,35 @@
 import requests
+import yfinance as yf
 from bs4 import BeautifulSoup
 
 def scrape_news():
-    url = 'https://finance.yahoo.com/topic/stock-market-news/'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    ticker = yf.Ticker("^GSPC") # For the S&P 500 index
+
+    news = ticker.news
 
     articles = []
-    news_items = soup.select('.js-stream-content .js-content-wrapper')
+    for article in news:
+        title = article["title"]
+        date = article["providerPublishTime"]
+        link = article["link"]
 
-    for item in news_items:
-        title = item.select_one('h3 a').text.strip() # Extract the title of the news article
-        summary = item.select_one('p').text.strip() # Extract the summary of the news article
-        date = item.select_one('.date-time').text.strip() # Extract the date of the news article
+        response = requests.get(link)
+        soup = BeautifulSoup(response.content, "html.parser")
 
-        article = {
-            'title': title,
-            'summary': summary,
-            'date': date
+        # Extract the summary from the article content
+        summary_element = soup.find("div", class_="some-summary-class")
+        if summary_element:
+            summary = summary_element.get_text().strip()
+        else:
+            summary = ""
+
+        article_data = {
+            "title": title,
+            "summary": summary,
+            "date": date
         }
-        articles.append(article)
-
-    print(articles)
+        articles.append(article_data)
     return articles
 
 def scrape_stock_prices():
