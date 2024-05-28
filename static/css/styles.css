@@ -1,0 +1,32 @@
+/* Custom styles for the Personal Finance Tracker */
+
+body {
+    padding-top: 60px;
+}
+
+.jumbotron {
+    background-color: #f8f9fa;
+    padding: 4rem 2rem;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+.table thead th {
+    font-weight: bold;
+}
