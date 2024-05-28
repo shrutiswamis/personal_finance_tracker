@@ -1,7 +1,10 @@
+import os
 from flask import Flask, render_template
 from scraper import scrape_news, scrape_stock_prices
 
 app = Flask(__name__)
+
+app.secret_key = '7420uhde34793'
 
 @app.route('/')
 def home():
